@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><title>TECH_DESIGN.md · 课程项目文档</title><style>*{box-sizing:border-box}body{margin:0;background:#edf1f6;color:#17243b;font:20px/1.85 "Microsoft YaHei","Segoe UI",sans-serif}main{max-width:1280px;margin:36px auto;background:white;padding:48px 64px;border:1px solid #dce2ec;border-radius:16px}header{color:#52647f;border-bottom:1px solid #dce2ec;padding-bottom:18px;font-size:17px}h1{font-size:34px;line-height:1.55;margin:30px 0}h2{font-size:27px;border-bottom:1px solid #e4e8ee;padding-bottom:8px;margin:32px 0 14px}h3{font-size:23px;margin:25px 0 12px}p{margin:14px 0}ul,ol{padding-left:30px;margin:14px 0}li{margin:7px 0}code{background:#eef2f7;padding:2px 6px;border-radius:4px;font:18px/1.7 Consolas,"Microsoft YaHei",monospace;overflow-wrap:anywhere}pre{padding:18px;background:#eef2f7;white-space:pre-wrap}pre code{padding:0}table{border-collapse:collapse;width:100%;margin:22px 0;font-size:19px;table-layout:auto}th,td{border:1px solid #dce2ec;padding:11px 16px;text-align:left;overflow-wrap:anywhere}th{background:#eef3fa}footer{margin-top:34px;padding-top:18px;border-top:1px solid #e4e8ee;color:#60708a;font-size:16px}</style></head><body><main><header>CY · 星间档案 / 项目文档 / TECH_DESIGN.md</header><h1>CY · 星间档案｜技术设计（TECH_DESIGN）</h1>
+<h2>1. 技术选型</h2>
+<table><thead><tr><th>层次</th><th>方案</th><th>目的</th></tr></thead><tbody><tr><td>页面</td><td>React + TypeScript</td><td>组件组织与数据类型约束</td></tr><tr><td>构建</td><td>Vite</td><td>本地开发和静态产物构建</td></tr><tr><td>样式</td><td>Tailwind CSS + 全局样式</td><td>响应式深色星空视觉</td></tr><tr><td>路由</td><td>React Router</td><td>前台详情与后台页面切换</td></tr><tr><td>校验</td><td>Zod</td><td>统一校验后台表单输入</td></tr><tr><td>正文</td><td>Markdown 渲染组件</td><td>展示文章与项目说明，禁止直接执行 HTML</td></tr><tr><td>持久化</td><td>统一 API 层 + localStorage</td><td>按课程要求模拟内容服务</td></tr><tr><td>部署</td><td>Vercel 或 Cloudflare Pages</td><td>托管 Vite 构建的 <code>dist</code></td></tr></tbody></table>
+<h2>2. 架构与目录职责</h2>
+<p>页面和组件通过 <code>src/api</code> 读取、保存数据，不在界面各处直接操作存储。默认示例数据在首次访问时加载；后续使用当前浏览器保存的数据。存储键为 <code>cy-portfolio-v1</code>，通过版本键隔离数据，不自动迁移旧版本。损坏 JSON 或不符合模型的数据会回退默认值并在后台提示；保存时可覆盖损坏数据。存储写入失败时显示错误且不更新内存。通过 storage 事件同步同源标签页。</p>
+<ul><li><code>src/</code>：应用入口、路由、前台、后台、公共组件与样式。</li><li><code>src/api/</code>：数据读取、更新、持久化和异常处理。</li><li><code>public/</code>：静态资源和托管平台所需配置。</li><li><code>dist/</code>：执行构建后生成的部署产物。</li><li><code>deliverables/</code>：课程提交清单和已验证的截图材料。</li></ul>
+<h2>3. 数据契约</h2>
+<p>根数据 <code>PortfolioData</code> 包含：</p>
+<table><thead><tr><th>字段</th><th>内容</th></tr></thead><tbody><tr><td><code>profile</code></td><td><code>name</code>、<code>role</code>、<code>bio</code>、<code>about</code>、<code>email</code>、<code>github</code>、<code>location</code></td></tr><tr><td><code>skills[]</code></td><td><code>id</code>、<code>name</code>、<code>category</code>、<code>level</code></td></tr><tr><td><code>projects[]</code></td><td><code>id</code>、<code>title</code>、<code>summary</code>、<code>category</code>、<code>tags</code>、<code>description</code>、<code>url</code>、<code>featured</code></td></tr><tr><td><code>posts[]</code></td><td><code>id</code>、<code>title</code>、<code>excerpt</code>、<code>content</code>、<code>date</code>、<code>published</code></td></tr><tr><td><code>settings</code></td><td><code>siteTitle</code>、<code>siteDescription</code></td></tr></tbody></table>
+<p><code>tags</code> 为逗号分隔的字符串；<code>level</code> 为技能数值；<code>featured</code> 控制项目精选标记。ID 用于详情路由和编辑定位。更新单项时保留其他记录；删除后及时更新当前展示。输入应保留可恢复的表单状态，并在保存前完成校验。</p>
+<h2>4. 路由</h2>
+<p>前台：<code>/</code>、<code>/projects/:id</code>、<code>/blog/:id</code>。</p>
+<p>后台：<code>/admin/login</code>、<code>/admin</code>、<code>/admin/profile</code>、<code>/admin/skills</code>、<code>/admin/projects</code>、<code>/admin/posts</code>、<code>/admin/settings</code>。</p>
+<p>受保护后台页面使用统一路由守卫；无会话、无效或过期会话跳转到登录页。资源不存在时展示返回入口。部署平台需要配置 SPA 回退，确保直接打开详情页或刷新后台路径时仍返回应用入口。</p>
+<h2>5. 登录与数据安全边界</h2>
+<p>演示账号为 <code>admin</code>，密码为 <code>Starry2026!</code>。登录时对输入密码计算 SHA-256 摘要后比较，不将明文密码写入浏览器存储。会话位于 <code>sessionStorage</code>，有效期 8 小时；退出清除会话。</p>
+<p>这是客户端演示认证，摘要、逻辑和内容均可能被访问者检查或修改，因此不能作为生产环境身份认证。内容存在访问者自己的 <code>localStorage</code>，不上传服务器，也不会自动传播到其他设备。公开部署的站点默认展示随代码发布的示例数据。</p>
+<p>文章 Markdown 不启用原始 HTML 执行，外部链接避免不安全协议。对邮箱、链接等输入进行格式校验；展示文本通过 React 转义，不直接拼接 HTML。</p>
+<h2>6. 样式与可访问性</h2>
+<p>采用深色背景、低干扰星点和蓝紫色重点色。装饰层不拦截交互。布局先适配窄屏，再扩展为桌面网格；内容长词和链接允许换行。导航、按钮和表单保留键盘焦点，错误信息关联输入框；减少动画偏好下关闭或简化动态效果。</p>
+<h2>7. 构建与部署</h2>
+<p>本地安装依赖后执行 <code>npm run dev</code>；提交前执行 <code>npm run build</code>，该命令依次运行 <code>tsc --noEmit</code> 类型检查与 <code>vite build</code>。<code>npm run preview</code> 可预览生产构建。构建输出 <code>dist</code>。</p>
+<p>Vercel：导入 GitHub 仓库，框架选 Vite，构建命令 <code>npm run build</code>，输出目录 <code>dist</code>，通过项目 <code>vercel.json</code> 配置单页应用路由回退。</p>
+<p>Cloudflare Pages：连接 GitHub 仓库，构建命令和输出目录同上，通过 <code>public/_redirects</code> 配置单页应用回退。部署后检查首页、详情路由、后台登录、刷新及移动端布局，以实际成功地址作为作业域名。</p>
+<h2>8. 检查与后续扩展</h2>
+<p>验证登录守卫与过期、表单错误、删除取消、持久化、文章发布状态和 375px 布局；检查生产构建及线上深层路由。真实跨设备内容管理需要替换 API 层，接入数据库、服务端登录、会话验证与授权后再开放写入。</p><footer>源文件：TECH_DESIGN.md · 本页由源文档内容直接生成，用于课程提交截图。</footer></main></body></html>

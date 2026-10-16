@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.vercel/
+.env
+.env.*
+!.env.example
+*.local
+credentials/
+.credentials/
+secrets/
+*.pem
+*.key
+*.p12
+*.pfx
+*.tsbuildinfo
+.DS_Store
+Thumbs.db
