@@ -1,0 +1,21 @@
+{
+  "url": "https://cy-starry-portfolio.pages.dev",
+  "deployment": "https://6e1c7157.cy-starry-portfolio.pages.dev",
+  "commit": "12225bd",
+  "checkedAt": "2026-10-16T09:39:47.401Z",
+  "status": "passed",
+  "scope": [
+    "legacy default migration",
+    "unrelated data preserved",
+    "custom project preserved",
+    "deleted project stays deleted",
+    "cleared links stay cleared",
+    "unsafe protocol rejected",
+    "four exact safe external links"
+  ],
+  "screenshots": [
+    "06-project-detail-online.png",
+    "08-todo-links-online.png"
+  ],
+  "note": "Focused follow-up verification; original verification.json preserves the earlier full workflow result."
+}

@@ -16,7 +16,10 @@
   site-online/01-home-desktop-online.png（线上首页）
   site-online/02-admin-dashboard-online.png（后台概览）
   site-online/03-admin-profile-online.png（个人信息编辑）
-可追加移动页面、项目详情、博客详情截图，均在 site-online/ 目录。
+项目入口补充截图：
+  site-online/06-project-detail-online.png（ImageGrab 项目官网与查看源码）
+  site-online/08-todo-links-online.png（Todo 在线体验与查看源码）
+可追加移动页面、博客详情截图，均在 site-online/ 目录。
 线上功能检查已覆盖后台登录、资料保存和前台更新；最终提交截图已恢复默认示例内容。
 提交材料包只收录实际文档与真实线上截图。
 
@@ -43,6 +46,7 @@ ImageGrab 在线入口为插件介绍官网，插件需按仓库说明安装。
 后台是客户端演示登录，不是真实服务端安全认证，请勿填写敏感信息。
 
 本地运行与部署说明见项目 README.md。
+
 
 
 
