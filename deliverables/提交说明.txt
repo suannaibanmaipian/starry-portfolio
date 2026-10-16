@@ -29,12 +29,20 @@
 账号：admin
 密码：Starry2026!
 进入“个人信息”编辑简介并保存，再返回前台可看到修改；刷新仍保留当前浏览器数据。
-后台还可管理技能、项目、博客、站点标题与描述。
+后台还可管理技能、项目、博客、站点标题与描述，项目可分别编辑在线地址与源码地址。
+
+项目详情的在线入口与源码
+Todo 在线体验：https://suannaibanmaipian.github.io/todo/
+Todo 源码：https://github.com/suannaibanmaipian/todo
+ImageGrab 项目官网：https://suannaibanmaipian.github.io/image-grab-plugin/docs/
+ImageGrab 源码：https://github.com/suannaibanmaipian/image-grab-plugin
+ImageGrab 在线入口为插件介绍官网，插件需按仓库说明安装。
 
 课程演示边界
 数据保存在当前站点、当前浏览器的 localStorage，更换设备、浏览器或域名不会同步。
 后台是客户端演示登录，不是真实服务端安全认证，请勿填写敏感信息。
 
 本地运行与部署说明见项目 README.md。
+
 
 

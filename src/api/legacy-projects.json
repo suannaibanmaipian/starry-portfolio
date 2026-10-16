@@ -1,0 +1,22 @@
+[
+  {
+    "id": "imagegrab",
+    "title": "ImageGrab",
+    "summary": "从浏览器页面发现图片，让素材收集更轻松。",
+    "category": "浏览器扩展",
+    "tags": "Chrome Extension,JavaScript,Manifest V3",
+    "description": "# 图片收集，从一步开始\n\nImageGrab 是实训中的 Chrome 图片提取插件项目。支持提取页面图片、集中预览、筛选与批量下载。\n\n## 项目关注点\n\n- 将分散的页面图片集中展示\n- 提供筛选与批量下载操作\n- 使用 Manifest V3 构建扩展\n\n项目源码位于本地 day3 资料中，公开链接尚未配置。",
+    "url": "",
+    "featured": true
+  },
+  {
+    "id": "todo",
+    "title": "A little Todo",
+    "summary": "一个轻量的待办清单，把注意力留给今天要做的事。",
+    "category": "Web 应用",
+    "tags": "HTML,CSS,JavaScript,localStorage",
+    "description": "# 让日常更有条理\n\n原生 HTML、CSS、JavaScript 实现的单页待办应用。\n\n## 已实现功能\n\n- 新增与删除待办\n- 切换完成状态\n- 未完成事项计数\n- 使用 localStorage 保存数据\n\n这是一个从基础交互出发的练习项目。公开链接尚未配置。",
+    "url": "",
+    "featured": true
+  }
+]

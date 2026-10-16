@@ -6,9 +6,20 @@
 
 - 网站：[https://cy-starry-portfolio.pages.dev/](https://cy-starry-portfolio.pages.dev/)
 - 后台：[https://cy-starry-portfolio.pages.dev/admin/login](https://cy-starry-portfolio.pages.dev/admin/login)
-- 本次部署预览：[df3f257e.cy-starry-portfolio.pages.dev](https://df3f257e.cy-starry-portfolio.pages.dev/)
+
 
 网站已通过 Cloudflare Pages Direct Upload 发布；线上功能验收与截图以 `deliverables/` 中的最终报告为准。
+
+## 已配置的项目链接
+
+| 项目 | 在线入口 | 源码 |
+| --- | --- | --- |
+| A little Todo | [在线体验](https://suannaibanmaipian.github.io/todo/) | [GitHub](https://github.com/suannaibanmaipian/todo) |
+| ImageGrab | [项目官网](https://suannaibanmaipian.github.io/image-grab-plugin/docs/) | [GitHub](https://github.com/suannaibanmaipian/image-grab-plugin) |
+
+首页项目卡片进入站内详情，再分别打开在线入口和源码。后台“项目管理”可编辑两个地址；ImageGrab 官网展示插件介绍，插件本身需按源码仓库说明安装使用。
+
+旧版浏览器数据仅对逐字段仍与原始默认记录一致的项目补充链接和描述；不覆盖自定义或恢复已删除项目。升级标记保存后，主动清空的链接不会再次补回。
 
 ## 本地运行
 
@@ -87,4 +98,5 @@ npx wrangler@4.45.0 pages deploy dist --project-name cy-starry-portfolio --branc
 
 
 三份文档内容截图已放在 `deliverables/documents/`。如文档修改，可在当前配置了工具的电脑运行 `node scripts/capture-documents.cjs` 重新生成；该辅助脚本使用本机 Chrome 和 Codex bundled Playwright 路径，不参与网站构建，其他电脑需按自身安装位置调整。
+
 

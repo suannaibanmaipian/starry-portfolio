@@ -15,7 +15,7 @@
 
 ## 2. 架构与目录职责
 
-页面和组件通过 `src/api` 读取、保存数据，不在界面各处直接操作存储。默认示例数据在首次访问时加载；后续使用当前浏览器保存的数据。存储键为 `cy-portfolio-v1`，通过版本键隔离数据，不自动迁移旧版本。损坏 JSON 或不符合模型的数据会回退默认值并在后台提示；保存时可覆盖损坏数据。存储写入失败时显示错误且不更新内存。通过 storage 事件同步同源标签页。
+页面和组件通过 `src/api` 读取、保存数据，不在界面各处直接操作存储。默认示例数据在首次访问时加载；后续使用当前浏览器保存的数据。存储键为 `cy-portfolio-v1`，兼容旧版缺失的 `sourceUrl` 字段，默认按空字符串读取；使用 `migrations` 记录一次性升级。损坏 JSON 或不符合模型的数据会回退默认值并在后台提示；保存时可覆盖损坏数据。存储写入失败时显示错误且不更新内存。通过 storage 事件同步同源标签页。
 
 - `src/`：应用入口、路由、前台、后台、公共组件与样式。
 - `src/api/`：数据读取、更新、持久化和异常处理。
@@ -31,11 +31,18 @@
 | --- | --- |
 | `profile` | `name`、`role`、`bio`、`about`、`email`、`github`、`location` |
 | `skills[]` | `id`、`name`、`category`、`level` |
-| `projects[]` | `id`、`title`、`summary`、`category`、`tags`、`description`、`url`、`featured` |
+| `projects[]` | `id`、`title`、`summary`、`category`、`tags`、`description`、`url`、`sourceUrl`、`featured` |
 | `posts[]` | `id`、`title`、`excerpt`、`content`、`date`、`published` |
 | `settings` | `siteTitle`、`siteDescription` |
+| `migrations?` | 可选字符串数组，记录已完成的数据升级 |
 
-`tags` 为逗号分隔的字符串；`level` 为技能数值；`featured` 控制项目精选标记。ID 用于详情路由和编辑定位。更新单项时保留其他记录；删除后及时更新当前展示。输入应保留可恢复的表单状态，并在保存前完成校验。
+`url` 是在线体验或官网地址，`sourceUrl` 是源码地址；旧版类型可缺失 `sourceUrl`，校验时补为空字符串。两者只接受空值或 http/https 地址。`tags` 为逗号分隔的字符串；`level` 为技能数值；`featured` 控制项目精选标记。ID 用于详情路由和编辑定位。更新单项时保留其他记录；删除后及时更新当前展示。输入应保留可恢复的表单状态，并在保存前完成校验。
+
+### 旧默认项目链接升级
+
+`project-links-v1` 仅处理尚未升级的数据：逐字段比较项目与 `src/api/legacy-projects.json` 中的旧完整记录，且源码地址为空时，补充在线地址、源码地址和新版详情描述；不修改自定义项目，不恢复已删除项目。迁移标记与数据同次保存，后续用户主动清空链接不会被重复补回。存储写入失败时保留当前页升级结果并提示未保存，不覆盖其他数据。新种子已带迁移标记。
+
+项目卡片仍进入站内详情；Todo 的主入口为“在线体验”，ImageGrab 为“项目官网”，源码入口为“查看源码”。外链使用 `target="_blank"` 与 `rel="noopener noreferrer"`；两种链接均为空时才显示未配置提示。
 
 ## 4. 路由
 
@@ -63,13 +70,14 @@
 
 Vercel：导入 GitHub 仓库，框架选 Vite，构建命令 `npm run build`，输出目录 `dist`，通过项目 `vercel.json` 配置单页应用路由回退。
 
-本次使用 Cloudflare Pages Direct Upload：完成授权后运行 `npx wrangler@4.45.0 pages deploy dist --project-name cy-starry-portfolio --branch main`，上传生产构建。正式站点为 https://cy-starry-portfolio.pages.dev/，后台为该域名的 `/admin/login`；本次部署预览为 https://df3f257e.cy-starry-portfolio.pages.dev/。
+本次使用 Cloudflare Pages Direct Upload：完成授权后运行 `npx wrangler@4.45.0 pages deploy dist --project-name cy-starry-portfolio --branch main`，上传生产构建。正式站点为 https://cy-starry-portfolio.pages.dev/，后台为该域名的 `/admin/login`。
 
 通过 `public/_redirects` 配置单页应用回退。源码保存在独立 GitHub 私有仓库，Direct Upload 与 Git 推送分别进行，不会自动持续部署。更新时先重新构建再上传，不将托管平台凭据写入项目。另一种选择是 Cloudflare Pages Git 集成，使用相同的构建命令和输出目录。部署后检查首页、详情路由、后台登录、刷新及移动端布局，实际检查结果另存验收报告。
 
 ## 8. 检查与后续扩展
 
 验证登录守卫与过期、表单错误、删除取消、持久化、文章发布状态和 375px 布局；检查生产构建及线上深层路由。真实跨设备内容管理需要替换 API 层，接入数据库、服务端登录、会话验证与授权后再开放写入。
+
 
 
 
