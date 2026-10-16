@@ -17,10 +17,11 @@
 <p>这是客户端演示认证，摘要、逻辑和内容均可能被访问者检查或修改，因此不能作为生产环境身份认证。内容存在访问者自己的 <code>localStorage</code>，不上传服务器，也不会自动传播到其他设备。公开部署的站点默认展示随代码发布的示例数据。</p>
 <p>文章 Markdown 不启用原始 HTML 执行，外部链接避免不安全协议。对邮箱、链接等输入进行格式校验；展示文本通过 React 转义，不直接拼接 HTML。</p>
 <h2>6. 样式与可访问性</h2>
-<p>采用深色背景、低干扰星点和蓝紫色重点色。装饰层不拦截交互。布局先适配窄屏，再扩展为桌面网格；内容长词和链接允许换行。导航、按钮和表单保留键盘焦点，错误信息关联输入框；减少动画偏好下关闭或简化动态效果。</p>
+<p>采用深蓝背景、低干扰星点和青绿重点色。装饰层不拦截交互。布局先适配窄屏，再扩展为桌面网格；内容长词和链接允许换行。导航、按钮和表单保留键盘焦点，错误信息关联输入框；减少动画偏好下关闭或简化动态效果。</p>
 <h2>7. 构建与部署</h2>
 <p>本地安装依赖后执行 <code>npm run dev</code>；提交前执行 <code>npm run build</code>，该命令依次运行 <code>tsc --noEmit</code> 类型检查与 <code>vite build</code>。<code>npm run preview</code> 可预览生产构建。构建输出 <code>dist</code>。</p>
 <p>Vercel：导入 GitHub 仓库，框架选 Vite，构建命令 <code>npm run build</code>，输出目录 <code>dist</code>，通过项目 <code>vercel.json</code> 配置单页应用路由回退。</p>
-<p>Cloudflare Pages：连接 GitHub 仓库，构建命令和输出目录同上，通过 <code>public/_redirects</code> 配置单页应用回退。部署后检查首页、详情路由、后台登录、刷新及移动端布局，以实际成功地址作为作业域名。</p>
+<p>本次使用 Cloudflare Pages Direct Upload：完成授权后运行 <code>npx wrangler@4.45.0 pages deploy dist --project-name cy-starry-portfolio --branch main</code>，上传生产构建。正式站点为 https://cy-starry-portfolio.pages.dev/，后台为该域名的 <code>/admin/login</code>；本次部署预览为 https://df3f257e.cy-starry-portfolio.pages.dev/。</p>
+<p>通过 <code>public/_redirects</code> 配置单页应用回退。源码保存在独立 GitHub 私有仓库，Direct Upload 与 Git 推送分别进行，不会自动持续部署。更新时先重新构建再上传，不将托管平台凭据写入项目。另一种选择是 Cloudflare Pages Git 集成，使用相同的构建命令和输出目录。部署后检查首页、详情路由、后台登录、刷新及移动端布局，实际检查结果另存验收报告。</p>
 <h2>8. 检查与后续扩展</h2>
 <p>验证登录守卫与过期、表单错误、删除取消、持久化、文章发布状态和 375px 布局；检查生产构建及线上深层路由。真实跨设备内容管理需要替换 API 层，接入数据库、服务端登录、会话验证与授权后再开放写入。</p><footer>源文件：TECH_DESIGN.md · 本页由源文档内容直接生成，用于课程提交截图。</footer></main></body></html>

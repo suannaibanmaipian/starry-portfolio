@@ -2,6 +2,14 @@
 
 专业实习个人网站：深色星空前台，包含个人介绍、技能、项目和博客，以及可编辑内容的演示管理后台。
 
+## 在线访问
+
+- 网站：[https://cy-starry-portfolio.pages.dev/](https://cy-starry-portfolio.pages.dev/)
+- 后台：[https://cy-starry-portfolio.pages.dev/admin/login](https://cy-starry-portfolio.pages.dev/admin/login)
+- 本次部署预览：[df3f257e.cy-starry-portfolio.pages.dev](https://df3f257e.cy-starry-portfolio.pages.dev/)
+
+网站已通过 Cloudflare Pages Direct Upload 发布；线上功能验收与截图以 `deliverables/` 中的最终报告为准。
+
 ## 本地运行
 
 先安装当前受 Vite 支持的 Node.js LTS 和 npm，在项目根目录执行：
@@ -53,7 +61,18 @@ npm run preview
 4. 项目已提供 `vercel.json` 路由回退；确认配置生效，开始部署。
 5. 实际访问平台生成的网址，检查首页、项目详情、博客详情和 `/admin/login`；直接打开及刷新深层路径也应成功。
 
-## Cloudflare Pages 部署（可选）
+## Cloudflare Pages 部署（本次使用）
+
+本次通过 Wrangler 4.45.0 Direct Upload 发布到项目 `cy-starry-portfolio`。已在本机完成 Cloudflare 授权后，可执行：
+
+```powershell
+npm run build
+npx wrangler@4.45.0 pages deploy dist --project-name cy-starry-portfolio --branch main
+```
+
+此命令会更新线上站点；先确认当前代码和构建结果符合预期。网络环境需要代理时，按实际环境设置 `HTTPS_PROXY`；不要将账号、Token 或全局认证配置放入项目。Direct Upload 不会在 GitHub 每次推送后自动部署，后续改动需重新执行上传命令。
+
+另一种部署方式是 Git 集成：
 
 在 Pages 中连接 GitHub 仓库，选择项目根目录，构建命令填写 `npm run build`，输出目录填写 `dist`。项目已提供 `public/_redirects`，确保单页应用路径回退到 `index.html`。无需购买自定义域名，平台生成的站点地址可用于作业填写。
 
@@ -68,3 +87,4 @@ npm run preview
 
 
 三份文档内容截图已放在 `deliverables/documents/`。如文档修改，可在当前配置了工具的电脑运行 `node scripts/capture-documents.cjs` 重新生成；该辅助脚本使用本机 Chrome 和 Codex bundled Playwright 路径，不参与网站构建，其他电脑需按自身安装位置调整。
+

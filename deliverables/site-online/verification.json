@@ -1,0 +1,16 @@
+{
+  "url": "https://cy-starry-portfolio.pages.dev",
+  "checkedAt": "2026-10-16T08:50:18.163Z",
+  "status": "passed",
+  "browser": "Chrome headless",
+  "screenshots": [
+    "01-home-desktop-online.png",
+    "02-admin-dashboard-online.png",
+    "03-admin-profile-online.png",
+    "04-home-mobile-online.png",
+    "05-admin-mobile-online.png",
+    "06-project-detail-online.png",
+    "07-blog-detail-online.png"
+  ],
+  "note": "Real HTTPS deployment; default data restored before submission screenshots."
+}

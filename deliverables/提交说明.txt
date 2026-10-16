@@ -1,0 +1,40 @@
+个人网站课程作业提交说明
+
+项目：CY · 星间档案（网站名：星间手记）
+说明状态：已成功部署 Cloudflare Pages；正式域名经 Chrome 独立验收通过，真实线上截图已完成。
+
+03 个人网站 PRD、TECH_DESIN、AGENTS 三个文档内容截图
+上传以下三张图片：
+  documents/PRD.png
+  documents/TECH_DESIGN.png
+  documents/AGENTS.png
+课件正式文件名为 TECH_DESIGN.md，与表单中的 TECH_DESIN 对应同一份技术设计文档。
+三份截图由实际 Markdown 源文件在浏览器渲染后截取，均包含完整内容。
+
+04 个人网站部署成功后的展示页面截图
+推荐上传以下真实线上截图：
+  site-online/01-home-desktop-online.png（线上首页）
+  site-online/02-admin-dashboard-online.png（后台概览）
+  site-online/03-admin-profile-online.png（个人信息编辑）
+可追加移动页面、项目详情、博客详情截图，均在 site-online/ 目录。
+线上功能检查已覆盖后台登录、资料保存和前台更新；最终提交截图已恢复默认示例内容。
+提交材料包只收录实际文档与真实线上截图。
+
+05 域名地址
+部署平台：Cloudflare Pages（Direct Upload）。
+网站首页：https://cy-starry-portfolio.pages.dev/
+后台登录：https://cy-starry-portfolio.pages.dev/admin/login
+
+后台演示使用方法
+账号：admin
+密码：Starry2026!
+进入“个人信息”编辑简介并保存，再返回前台可看到修改；刷新仍保留当前浏览器数据。
+后台还可管理技能、项目、博客、站点标题与描述。
+
+课程演示边界
+数据保存在当前站点、当前浏览器的 localStorage，更换设备、浏览器或域名不会同步。
+后台是客户端演示登录，不是真实服务端安全认证，请勿填写敏感信息。
+
+本地运行与部署说明见项目 README.md。
+
+
